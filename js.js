@@ -25,7 +25,7 @@ function play2() {
   // pick random number from choices == AI move
   var number = Math.floor(Math.random() * choices.length );
   var currentCompMove = choices[number];
-  // push current AI move to computerMoves + notAllowedMoves
+  // push current AI move to computerMoves + notAllowedMoves a
   computerMoves.push(currentCompMove);
   notAllowedMoves.push(currentCompMove);
   // append picture to the right button + add class disabled;
