@@ -1,0 +1,153 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Open Sans', sans-serif;
+}
+
+.board {
+  min-width: 300px;
+  max-width: 302px;
+  margin: 50px auto;
+  display: flex;
+  flex-flow: row;
+  flex-wrap: wrap;
+}
+
+.square {
+  border: 1px solid #ccc;
+  min-width: 100px;
+  min-height: 100px;
+  max-width: 100px;
+  max-height: 100px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+/* removes selection around the image */
+  -webkit-user-select: none;  /* Chrome all / Safari all */
+   -moz-user-select: none;     /* Firefox all */
+   -ms-user-select: none;      /* IE 10+ */
+   user-select: none;
+}
+
+.square:hover {
+  background: #eee;
+  cursor: pointer;
+}
+
+.disabled {
+  pointer-events: none;
+}
+
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  opacity: 0.5;
+  background: #000;
+  min-width: 100%;
+  min-height: 100vh;
+  z-index: 1;
+}
+
+.modal {
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  position: fixed;
+  background: #fff;
+  min-width: 400px;
+  max-width: 400px;
+  text-align: center;
+  margin: 0 auto;
+  padding: 20px;
+  z-index: 2;
+  box-shadow: 0px 0px 10px rgba(0,0,0,0.3);
+}
+
+.modal img {
+  padding: 20px;
+  border: 2px solid transparent;
+  transition: 0.4s ease;
+}
+
+.modal img:hover {
+  border: 2px solid #222;
+  background: #dedede;
+  cursor: pointer;
+}
+
+.info {
+  text-align: center;
+  font-size: 20px;
+}
+
+.button {
+  border: 0;
+  min-height: 48px;
+  padding: 0 20px;
+  background-color: #ccc;
+  margin: 20px auto 0 auto;
+  display: flex;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+}
+
+.button:hover {
+  box-shadow: 0 0 10px rgba(0,0,0, 0.3);
+}
+
+
+
+/* ############### DEFINING GRID ###############*/
+
+#btn1 {
+  border-right: 2px solid #000;
+  border-bottom: 2px solid #000;
+}
+
+#btn2 {
+  border-left: 2px solid #000;
+  border-bottom: 2px solid #000;
+  border-right: 2px solid #000;
+}
+
+#btn3 {
+  border-left: 2px solid #000;
+  border-bottom: 2px solid #000;
+}
+
+#btn4 {
+  border-top: 2px solid #000;
+  border-bottom: 2px solid #000;
+  border-right: 2px solid #000;
+}
+
+#btn5 {
+  border: 2px solid #000;
+}
+
+#btn6 {
+  border-top: 2px solid #000;
+  border-bottom: 2px solid #000;
+  border-left: 2px solid #000;
+}
+
+#btn7 {
+  border-top: 2px solid #000;
+  border-right: 2px solid #000;
+}
+
+#btn8 {
+  border-top: 2px solid #000;
+  border-left: 2px solid #000;
+  border-right: 2px solid #000;
+}
+
+#btn9 {
+  border-top: 2px solid #000;
+  border-left: 2px solid #000;
+}
