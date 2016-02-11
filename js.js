@@ -14,7 +14,6 @@ $(document).ready(function() {
   var winningMoves = [[2,5,8], [4,5,6], [1,2,3], [7,8,9], [1, 4, 7], [3,6,9], [1,5,9], [3, 5, 7]];
 
 
-
 // ################# FUNCTIONS ########################
 // AI move
 function play2() {
@@ -62,6 +61,9 @@ function play() {
 
       case computerMoves.length === 0 && selected === imgO:
         var options = [1,3,7,9,5];
+        options = options.filter(function(el) {
+          return notAllowedMoves.indexOf(el) < 0;
+        });
         aiMove = options[Math.floor(Math.random() * options.length)];
         move(aiMove);
       break;
@@ -200,12 +202,26 @@ function state(userMoves) {
 
 // ##################### STARTING GAME ###################
 // ##################### PICK X #######################
+$('#oImg').click(function() {
+  selected = imgO;
+  comp = imgX;
+  $('.modal').fadeOut(500);
+  $('.overlay').fadeOut(350);
+  gameOver = false;
+  game();
+});
+
+$('#xImg').click(function() {
+  selected = imgX;
+  comp = imgO;
+  $('.modal').fadeOut(500);
+  $('.overlay').fadeOut(350);
+  gameOver = false;
+  game();
+});
 function game() {
-  $('#xImg').click(function() {
-    selected = imgX;
-    comp = imgO;
-    $('.modal').fadeOut(500);
-    $('.overlay').fadeOut(350);
+
+  if (selected == imgX) {
 // X is first, AI plays when .squared is clicked;
     $('.square').click(function() {
       $(this).append('<img class="no-select" src="'+ selected + '"/>');
@@ -240,14 +256,11 @@ function game() {
       }
 
     });
-  });
+
+  }
 
 // #################### PICK O ############################
-  $('#oImg').click(function() {
-    selected = imgO;
-    comp = imgX;
-    $('.modal').fadeOut(500);
-    $('.overlay').fadeOut(350);
+  else if (selected == imgO) {
     // AI makes first move
     play();
     $('.square').click(function() {
@@ -263,7 +276,6 @@ function game() {
         $('.info').html('You won the game');
         return;
       }
-
 // computer move
       play();
       if (state(computerMoves) == 'won') {
@@ -271,33 +283,26 @@ function game() {
         return;
       }
 
-//
       if (notAllowedMoves.length >= 9){
         $('.info').html("It's a draw!");
         return;
       }
-
     });
-  });
+  }
 }
-// play game
- game();
 
+// play game
   $('#new-game').click(function(){
     computerMoves = [];
     userMoves = [];
     notAllowedMoves = [];
     choices = [];
-    selected = imgO;
-    comp = 0;
     currentCompMove = 0;
     tempMove = 0;
     tempArr = [];
     $('.square').html('');
     $('.square').removeClass('disabled');
     $('.info').html('');
-    $('.modal').fadeIn(350);
-    $('.overlay').fadeIn(350);
   });
 
 });
