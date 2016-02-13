@@ -200,16 +200,7 @@ function state(userMoves) {
 // end of state
 // ##################### END OF FUNCTIONS ######################
 
-// ##################### STARTING GAME ###################
-// ##################### PICK X #######################
-$('#oImg').click(function() {
-  selected = imgO;
-  comp = imgX;
-  $('.modal').fadeOut(500);
-  $('.overlay').fadeOut(350);
-  gameOver = false;
-  game();
-});
+// ##################### PICKING SIDE ###################
 
 $('#xImg').click(function() {
   selected = imgX;
@@ -217,81 +208,80 @@ $('#xImg').click(function() {
   $('.modal').fadeOut(500);
   $('.overlay').fadeOut(350);
   gameOver = false;
-  game();
 });
-function game() {
 
-  if (selected == imgX) {
+$('#oImg').click(function() {
+  selected = imgO;
+  comp = imgX;
+  $('.modal').fadeOut(500);
+  $('.overlay').fadeOut(350);
+  gameOver = false;
+  play();
+});
+
+// ############## GAME ##################
+$('.square').click(function() {
+ if (selected == imgX) {
 // X is first, AI plays when .squared is clicked;
-    $('.square').click(function() {
-      $(this).append('<img class="no-select" src="'+ selected + '"/>');
-      $(this).addClass('disabled');
+     $(this).append('<img class="no-select" src="'+ selected + '"/>');
+     $(this).addClass('disabled');
 
-      // get id of the clicked square and return last number
-      var move = $(this).attr('id');
-      // get number of
-      move = move.substr(move.length - 1);
-      userMoves.push(parseInt(move));
-      notAllowedMoves.push(parseInt(move));
+     // get id of the clicked square and return last number
+     var move = $(this).attr('id');
+     // get number of
+     move = move.substr(move.length - 1);
+     userMoves.push(parseInt(move));
+     notAllowedMoves.push(parseInt(move));
 
-      if (state(userMoves) == 'won') {
-        $('.info').html('You won the game');
-        return;
-      }
+     if (state(userMoves) == 'won') {
+       $('.info').html('You won the game');
+       return;
+     }
 
-        // AI should wait for your first move
-        if (userMoves.length > computerMoves.length){
-        // pick random number of the left moves and append picture at that position.
-          play();
-          if (state(computerMoves) == 'won') {
-            $('.info').html('You lost the game');
-            return;
-          }
-        } // end of usermoves if
+       // AI should wait for your first move
+       if (userMoves.length > computerMoves.length){
+       // pick random number of the left moves and append picture at that position.
+         play();
+         if (state(computerMoves) == 'won') {
+           $('.info').html('You lost the game');
+           return;
+         }
+       } // end of usermoves if
 
-      // if the game is not over, its a draw!
-      if (notAllowedMoves.length >= 9){
-        $('.info').html("it's a draw!");
-        return;
-      }
-
-    });
-
-  }
-
-// #################### PICK O ############################
-  else if (selected == imgO) {
-    // AI makes first move
-    play();
-    $('.square').click(function() {
-      $(this).append('<img class="no-select" src="'+ selected + '"/>');
-      $(this).addClass('disabled');
-      // get id of the clicked square and return last number
-      var move = $(this).attr('id');
-      // get number of
-      move = move.substr(move.length - 1);
-      userMoves.push(parseInt(move));
-      notAllowedMoves.push(parseInt(move));
-      if (state(userMoves) == 'won') {
-        $('.info').html('You won the game');
-        return;
-      }
+     // if the game is not over, its a draw!
+     if (notAllowedMoves.length >= 9){
+       $('.info').html("it's a draw!");
+       return;
+     }
+     // ################### PICK O #####################
+ } else if (selected == imgO) {
+     $(this).append('<img class="no-select" src="'+ selected + '"/>');
+     $(this).addClass('disabled');
+     // get id of the clicked square and return last number
+     var move = $(this).attr('id');
+     // get number of
+     move = move.substr(move.length - 1);
+     userMoves.push(parseInt(move));
+     notAllowedMoves.push(parseInt(move));
+     if (state(userMoves) == 'won') {
+       $('.info').html('You won the game');
+       return;
+     }
 // computer move
-      play();
-      if (state(computerMoves) == 'won') {
-        $('.info').html('You lost the game');
-        return;
-      }
+     play();
+     if (state(computerMoves) == 'won') {
+       $('.info').html('You lost the game');
+       return;
+     }
 
-      if (notAllowedMoves.length >= 9){
-        $('.info').html("It's a draw!");
-        return;
-      }
-    });
-  }
-}
+     if (notAllowedMoves.length >= 9){
+       $('.info').html("It's a draw!");
+       return;
+     }
+ }
+});
 
-// play game
+// clean the board and pick your side
   $('#new-game').click(function(){
     computerMoves = [];
     userMoves = [];
@@ -303,6 +293,8 @@ function game() {
     $('.square').html('');
     $('.square').removeClass('disabled');
     $('.info').html('');
+    $('.modal').fadeIn(350);
+    $('.overlay').fadeIn(350);
   });
 
 });
